@@ -74,12 +74,11 @@ const transporters = mailAccounts.map(acc => ({
   user: acc.user,
   transporter: nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // 587 ke liye STARTTLS use hoga
+    port: 465,
+    secure: true,
+    family: 4, // 👈 सबसे ज़रूरी: Force IPv4 (IPv6 हैंग नहीं होगा)
     auth: { user: acc.user, pass: acc.pass },
-    connectionTimeout: 8000, // 8 seconds timeout (hang nahi hoga)
-    greetingTimeout: 5000,
-    socketTimeout: 10000,
+    connectionTimeout: 5000,
     tls: {
       rejectUnauthorized: false
     }
