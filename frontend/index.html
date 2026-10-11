@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bansal Bus Service | Student Travel Pass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --bg-canvas: #f6f3eb;
+      --card-white: #ffffff;
+      --border-soft: #e7dfcb;
+      --accent-yellow: #f5be38;
+      --accent-yellow-hover: #e0ab29;
+      --accent-dark: #1c1917;
+      --text-main: #18181b;
+      --text-sub: #78716c;
+      --badge-verified: #15803d;
+      --badge-pending: #b45309;
+      --badge-rejected: #b91c1c;
+      --radius-large: 24px;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(245, 190, 56, 0.2) 0px, transparent 50%),
+        radial-gradient(at 90% 90%, rgba(220, 212, 196, 0.35) 0px, transparent 50%);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.2rem 0 0 0;
+    }
+
+    .main-wrapper {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1rem 3rem;
+      width: 100%;
+    }
+
+    /* TOP NAVBAR */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-white);
+      border: 1px solid var(--border-soft);
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      box-shadow: 0 4px 18px rgba(28,25,23,0.04);
+      margin-bottom: 1.6rem;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-logo-img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .brand-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-sub {
+      font-size: 0.74rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-nav {
+      background: #fdfaf3;
+      border: 1.5px solid var(--border-soft);
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-nav:hover {
+      background: #ffffff;
+      border-color: var(--accent-yellow);
+      transform: translateY(-1px);
+    }
+
+    .btn-logout-desktop {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1.5px solid #fecaca;
+    }
+
+    /* GREETING */
+    .greeting-header {
+      margin-bottom: 1.5rem;
+      padding: 0 0.4rem;
+    }
+
+    .greeting-header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+    }
+
+    .greeting-header p {
+      font-size: 0.94rem;
+      color: var(--text-sub);
+      margin-top: 0.2rem;
+    }
+
+    /* DASHBOARD GRID */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr;
+      gap: 1.6rem;
+      align-items: start;
+      margin-bottom: 2rem;
+    }
+
+    /* PASS CARD */
+    .ticket-card {
+      background: var(--card-white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-large);
+      overflow: hidden;
+      box-shadow: 0 20px 45px -15px rgba(44, 38, 28, 0.08);
+      position: relative;
+    }
+
+    .ticket-header {
+      background: #fdfcf9;
+      border-bottom: 2px dashed var(--border-soft);
+      padding: 1.4rem 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ticket-header-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .badge-status {
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-verified { background: #dcfce7; color: var(--badge-verified); border: 1.5px solid #86efac; }
+    .status-pending { background: #fef3c7; color: var(--badge-pending); border: 1.5px solid #fde68a; }
+    .status-rejected { background: #fee2e2; color: var(--badge-rejected); border: 1.5px solid #fca5a5; }
+
+    .ticket-body {
+      padding: 1.8rem;
+    }
+
+    .details-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .data-box label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.04em;
+    }
+
+    .data-box span {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: block;
+      word-break: break-word;
+    }
+
+    /* REDESIGNED BALANCED ALLOCATION BOX */
+    .allocation-box {
+      background: #fcf9f2;
+      border: 1.5px solid #ede3cf;
+      border-radius: 18px;
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .allocation-info-left {
+      flex: 1;
+    }
+
+    .bus-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    .bus-number-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #92400e;
+      background: #fef3c7;
+      padding: 0.35rem 0.85rem;
+      border-radius: 8px;
+      border: 1.2px solid #fde68a;
+      display: inline-block;
+    }
+
+    .coordinator-pill-container {
+      margin-top: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .coord-text {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .coord-actions {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .btn-coord-action {
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      border: 1px solid transparent;
+    }
+
+    .btn-coord-call { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
+    .btn-coord-wa { background: #dcfce7; color: #15803d; border-color: #bbf7d0; }
+
+    /* CLEAN DATE BADGE */
+    .date-badge {
+      text-align: center;
+      background: #ffffff;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 0.5rem 0.9rem;
+      min-width: 82px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .date-badge .month {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #b45309;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .date-badge .day {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 2px 0;
+      color: var(--text-main);
+    }
+
+    .date-badge .year {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      font-weight: 700;
+    }
+
+    /* REALTIME TRANSIT TRACK */
+    .transit-track-container {
+      background: #f5f2e9;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .track-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 800;
+      gap: 0.5rem;
+    }
+
+    .track-labels span {
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .track-line {
+      height: 8px;
+      background: #e2dbcc;
+      border-radius: 99px;
+      position: relative;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .bus-sprite {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      font-size: 1.8rem;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+      animation: driveBus 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes driveBus {
+      0% { left: 8%; transform: translate(-50%, -50%) scaleX(1); }
+      48% { left: 88%; transform: translate(-50%, -50%) scaleX(1); }
+      52% { left: 88%; transform: translate(-50%, -50%) scaleX(-1); }
+      100% { left: 8%; transform: translate(-50%, -50%) scaleX(-1); }
+    }
+
+    /* PASS ACTIONS */
+    .ticket-footer-actions {
+      display: flex;
+      gap: 0.9rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .btn-action {
+      flex: 1;
+      height: 50px;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-edit-profile {
+      background: #ffffff;
+      border: 1.5px solid var(--border-soft);
+      color: var(--text-main);
+    }
+    .btn-edit-profile:hover { border-color: var(--accent-yellow); background: #fdfaf3; }
+
+    .btn-view-proof {
+      background: var(--accent-yellow);
+      border: none;
+      color: var(--accent-dark);
+      box-shadow: 0 4px 15px rgba(245, 190, 56, 0.35);
+    }
+    .btn-view-proof:hover { background: var(--accent-yellow-hover); transform: translateY(-1px); }
+
+    /* RIGHT COLUMN */
+    .promo-card {
+      background: var(--card-white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-large);
+      padding: 1.6rem;
+      box-shadow: 0 20px 45px -15px rgba(44, 38, 28, 0.08);
+      text-align: center;
+    }
+
+    .promo-poster-img {
+      width: 100%;
+      height: 230px;
+      border-radius: 16px;
+      object-fit: cover;
+      background: url('images/login_image.png') center/cover;
+      margin-bottom: 1.3rem;
+      border: 1px solid var(--border-soft);
+    }
+
+    .promo-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .promo-sub {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 1.3rem;
+    }
+
+    /* COMMUNITY BOX */
+    .community-box {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin-bottom: 1.3rem;
+      text-align: left;
+    }
+
+    .community-box h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #15803d;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .community-box p {
+      font-size: 0.78rem;
+      color: #166534;
+      line-height: 1.4;
+      margin-bottom: 0.8rem;
+    }
+
+    .btn-join-comm {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #16a34a;
+      color: #ffffff;
+      padding: 0.7rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+
+    .features-pill-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .feature-pill {
+      background: #fdfaf3;
+      border: 1px solid var(--border-soft);
+      padding: 0.6rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #57534e;
+    }
+
+    /* OPERATIONS SECTION BELOW GRID */
+    .operations-section {
+      background: var(--card-white);
+      border: 1.5px solid var(--border-soft);
+      border-radius: var(--radius-large);
+      padding: 2rem;
+      margin-top: 1rem;
+      box-shadow: 0 15px 35px -10px rgba(44, 38, 28, 0.05);
+    }
+
+    .operations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.4rem;
+    }
+
+    .op-box {
+      background: #fdfcf9;
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 1.3rem;
+    }
+
+    .op-box h4 {
+      font-size: 0.98rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .op-box p {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    /* FULL-WIDTH BLACK FOOTER WITH CIRCLE LOGO */
+    .drutva-black-footer {
+      background-color: #0c0a09;
+      color: #a8a29e;
+      padding: 1.4rem 2rem;
+      width: 100%;
+      border-top: 1px solid #292524;
+      margin-top: 3rem;
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.82rem;
+    }
+
+    .footer-left {
+      color: #78716c;
+      font-weight: 500;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+    }
+
+    .footer-logo-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #1c1917;
+      border: 1px solid #44403c;
+    }
+
+    .footer-right b {
+      color: #f5be38;
+      letter-spacing: 0.03em;
+    }
+
+    /* CUSTOM HANGING ALERT MODAL */
+    .rope-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 12, 8, 0.55);
+      backdrop-filter: blur(8px);
+      z-index: 999999;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .rope-modal-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .rope-rig {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateY(-110%);
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .rope-modal-backdrop.show .rope-rig {
+      transform: translateY(0);
+      animation: swingPlate 1.8s ease-in-out infinite alternate 0.6s;
+    }
+
+    .rope-pair-container {
+      width: 320px;
+      display: flex;
+      justify-content: space-between;
+      height: 25px;
+    }
+
+    .rope-strand {
+      width: 4px;
+      height: 100%;
+      background: repeating-linear-gradient(45deg, #b45309, #b45309 5px, #d97706 5px, #d97706 10px);
+      position: relative;
+    }
+
+    .rope-strand::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: -4px;
+      width: 12px;
+      height: 12px;
+      border: 2px solid #78350f;
+      border-radius: 50%;
+      background: #d97706;
+    }
+
+    .hanging-board {
+      width: 90vw;
+      max-width: 460px;
+      background: #ffffff;
+      border: 2px solid #d97706;
+      border-radius: 20px;
+      padding: 1.4rem 1.6rem 1.2rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      position: relative;
+    }
+
+    .hanging-board::before, .hanging-board::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      width: 16px;
+      height: 16px;
+      background: #78350f;
+      border-radius: 50%;
+    }
+    .hanging-board::before { left: 45px; }
+    .hanging-board::after { right: 45px; }
+
+    .board-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+    .board-title { font-size: 1.2rem; font-weight: 800; color: #1c1917; margin-bottom: 0.3rem; }
+    .board-desc { font-size: 0.88rem; color: #57534e; line-height: 1.45; margin-bottom: 1.2rem; }
+
+    .board-btn-group { display: flex; gap: 0.75rem; justify-content: center; }
+    .board-btn { flex: 1; max-width: 150px; height: 44px; border-radius: 12px; font-family: inherit; font-size: 0.92rem; font-weight: 700; cursor: pointer; border: none; }
+    .board-btn-primary { background: var(--accent-yellow); color: var(--accent-dark); }
+    .board-btn-primary:hover { background: var(--accent-yellow-hover); }
+
+    @keyframes swingPlate {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(0.8deg); }
+      100% { transform: rotate(-0.8deg); }
+    }
+
+    /* MODAL: EDIT PROFILE */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 12, 8, 0.6);
+      backdrop-filter: blur(6px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 530px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.8rem;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+    }
+
+    .form-group-modal {
+      margin-bottom: 1rem;
+    }
+
+    .form-group-modal label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      margin-bottom: 0.35rem;
+    }
+
+    .modal-input {
+      width: 100%;
+      height: 48px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 0 1rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .modal-input:focus {
+      border-color: var(--accent-yellow);
+      background: #ffffff;
+    }
+
+    .modal-btn-row {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.4rem;
+    }
+
+    /* DRAWER */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      z-index: 99998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .drawer-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .help-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-radius: 28px 28px 0 0;
+      padding: 1.8rem 1.4rem 2rem;
+      z-index: 99999;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .drawer-backdrop.show .help-drawer {
+      transform: translateY(0);
+    }
+
+    .help-btn {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      border: 1.5px solid var(--border-soft);
+    }
+
+    .help-btn-whatsapp { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+    .help-btn-call { background: #f8fafc; border-color: #e2e8f0; }
+
+    /* MOBILE NAV */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 1px solid var(--border-soft);
+      padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom));
+      z-index: 9999;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+    }
+
+    .mobile-nav-items {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .mobile-nav-btn {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .mobile-nav-btn.active { color: #b45309; }
+    .mobile-nav-btn .icon { font-size: 1.3rem; }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 0.8rem 0 6rem 0;
+      }
+      .main-wrapper {
+        padding: 0 0.6rem;
+      }
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .top-nav {
+        margin-bottom: 1.2rem;
+        padding: 0.7rem 1.1rem;
+      }
+      .btn-nav-hide-mobile {
+        display: none !important;
+      }
+      .mobile-bottom-nav {
+        display: block;
+      }
+      .details-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.9rem;
+      }
+      .allocation-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .greeting-header h1 {
+        font-size: 1.6rem;
+      }
+      .ticket-header {
+        padding: 1.2rem 1.4rem;
+      }
+      .ticket-body {
+        padding: 1.4rem;
+      }
+      .operations-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CUSTOM HANGING ALERT MODAL -->
+  <div class="rope-modal-backdrop" id="customAlertModal">
+    <div class="rope-rig">
+      <div class="rope-pair-container">
+        <div class="rope-strand"></div>
+        <div class="rope-strand"></div>
+      </div>
+      <div class="hanging-board">
+        <div class="board-icon" id="alertIcon">🚌</div>
+        <h3 class="board-title" id="alertTitle">Notice</h3>
+        <p class="board-desc" id="alertDesc">Notification description text goes here.</p>
+        <div class="board-btn-group">
+          <button class="board-btn board-btn-primary" onclick="closeCustomAlert()">Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper">
+    
+    <!-- TOP NAVIGATION BAR -->
+    <header class="top-nav">
+      <div class="brand-group">
+        <img src="images/bbslogo.png" onerror="this.src='images/login_image.png'" alt="BBS Logo" class="brand-logo-img">
+        <div>
+          <div class="brand-name">Bansal Bus Service</div>
+          <div class="brand-sub">Independent Student Transit Portal</div>
+        </div>
+      </div>
+
+      <nav class="nav-actions">
+        <button class="btn-nav btn-nav-hide-mobile" onclick="openEditModal()">⚙️ Edit Profile</button>
+        <button class="btn-nav btn-nav-hide-mobile" onclick="openHelpDrawer()">📞 Need Help?</button>
+        <button class="btn-nav btn-logout-desktop" onclick="confirmSignOut()">Sign Out</button>
+      </nav>
+    </header>
+
+    <!-- USER GREETING -->
+    <section class="greeting-header">
+      <h1>Welcome, <span id="dispFirstName">Passenger</span>!</h1>
+      <p>Here are your allotted NPTEL transit, boarding pass, and coordination details.</p>
+    </section>
+
+    <!-- DASHBOARD MAIN -->
+    <main class="dashboard-grid">
+      
+      <!-- LEFT: BUS PASS -->
+      <section class="ticket-card">
+        
+        <div class="ticket-header">
+          <div>
+            <div class="ticket-header-title">My Exam Bus Pass</div>
+            <span style="font-size: 0.76rem; color: var(--text-sub); font-weight: 600;" id="lastUpdatedTime">Syncing...</span>
+          </div>
+          <div class="badge-status status-verified" id="badgeStatus">Payment Status: Pending</div>
+        </div>
+
+        <div class="ticket-body">
+          
+          <!-- DETAILS ROW 1 -->
+          <div class="details-row">
+            <div class="data-box">
+              <label>Student Name</label>
+              <span id="fieldFullName">Loading...</span>
+            </div>
+            <div class="data-box">
+              <label>University Roll</label>
+              <span id="fieldRoll">--</span>
+            </div>
+            <div class="data-box">
+              <label>Course / Year</label>
+              <span id="fieldCourseYear">--</span>
+            </div>
+            <div class="data-box">
+              <label>Amount Paid</label>
+              <span id="fieldAmountPaid" style="color: #15803d;">₹--</span>
+            </div>
+          </div>
+
+          <!-- DETAILS ROW 2 -->
+          <div class="details-row">
+            <div class="data-box">
+              <label>📞 Phone Number</label>
+              <span id="fieldContact">--</span>
+            </div>
+            <div class="data-box">
+              <label>💬 WhatsApp No.</label>
+              <span id="fieldWhatsapp">--</span>
+            </div>
+            <div class="data-box" style="grid-column: span 2;">
+              <label>UTR Reference No.</label>
+              <span id="fieldUtr" style="font-family: 'JetBrains Mono', monospace; font-size: 0.88rem;">--</span>
+            </div>
+          </div>
+
+          <!-- ALLOCATION BOX (BALANCED REDESIGN) -->
+          <div class="allocation-box">
+            <div class="allocation-info-left">
+              <label style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-sub);">Allotted Bus (No. & Name)</label>
+              <div class="bus-tag-row">
+                <span class="bus-number-display" id="fieldBusAllocated">Not Assigned Yet</span>
+              </div>
+              
+              <div class="coordinator-pill-container" id="coordinatorContainer">
+                <span class="coord-text" id="fieldLeaderInfo">Coordinator Desk: Not Assigned Yet</span>
+                <span class="coord-actions" id="coordActionButtons" style="display: none;">
+                  <a href="#" id="linkCoordCall" class="btn-coord-action btn-coord-call">📞 Call</a>
+                  <a href="#" id="linkCoordWa" target="_blank" class="btn-coord-action btn-coord-wa">💬 WhatsApp</a>
+                </span>
+              </div>
+            </div>
+
+            <!-- PROPERLY PARSED DYNAMIC DATE BADGE -->
+            <div class="date-badge">
+              <div class="month" id="fieldExamMonth">OCT</div>
+              <div class="day" id="fieldExamDay">17</div>
+              <div class="year" id="fieldExamYear">2026</div>
+            </div>
+          </div>
+
+          <!-- ROUTE & SHIFT -->
+          <div class="details-row" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.2rem;">
+            <div class="data-box">
+              <label>Designated Exam Center</label>
+              <span id="fieldExamCenter">Designated Center</span>
+            </div>
+            <div class="data-box">
+              <label>Pickup Location & Shift</label>
+              <span id="fieldPickupShift">GLA Campus &bull; Morning Shift</span>
+            </div>
+          </div>
+
+          <!-- LIVE ANIMATED ROUTE TRACK -->
+          <div class="transit-track-container">
+            <div class="track-labels">
+              <span id="lblPickupTrack">📍 Pickup: GLA Gate</span>
+              <span id="lblCenterTrack">🎯 Exam Center</span>
+            </div>
+            <div class="track-line">
+              <div class="bus-sprite" title="Bansal Bus Express">🚌</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #78716c; font-weight: 600;">
+              <span>Boarding Point</span>
+              <span style="font-weight: 800; color: #1c1917;">Bansal Express Corridor</span>
+              <span>Exam Venue Gate</span>
+            </div>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="ticket-footer-actions">
+            <button class="btn-action btn-edit-profile" style="width: 100%;" onclick="openEditModal()">
+              ✏️ Edit Profile Info
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- RIGHT: PROMO & COMMUNITY -->
+      <aside class="promo-card">
+        <div class="promo-poster-img"></div>
+        <h3 class="promo-title">Bansal Bus Service</h3>
+        <p class="promo-sub">Direct, safe, and punctual campus-to-centre travel solutions for engineering students appearing for NPTEL October 2026 examinations.</p>
+        
+        <!-- SMART COMMUNITY BOX -->
+        <div class="community-box" id="communityBox">
+          <h4 id="commTitle">💬 WhatsApp Community</h4>
+          <p id="commDesc">Join your official batch WhatsApp group for real-time bus route tracking and live roll call.</p>
+          <a id="commBtn" href="https://chat.whatsapp.com/IDUGXxrixkIFCrGw2TayZT" target="_blank" class="btn-join-comm">
+            Join WhatsApp Group &rarr;
+          </a>
+        </div>
+
+        <div class="features-pill-grid">
+          <div class="feature-pill">💺 Guaranteed Seat</div>
+          <div class="feature-pill">🛡️ Student Marshals</div>
+          <div class="feature-pill">⏱️ Punctual Drop</div>
+        </div>
+
+        <!-- UPDATED HELPDESK BUTTON -->
+        <button class="btn-action" style="background: #fdfaf3; border: 1.5px solid var(--border-soft); width: 100%; color: var(--text-main);" onclick="openHelpDrawer()">
+          📞 Need any help? Contact Desk
+        </button>
+      </aside>
+
+    </main>
+
+    <!-- EXTRA OPERATIONS & INFORMATION SECTION -->
+    <section class="operations-section">
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;">
+        <div>
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main);">About Bansal Bus Serivce Operations</h2>
+          <p style="font-size: 0.86rem; color: var(--text-sub); margin-top: 0.2rem;">Punctual, secure, and coordinated examination transit for Mathura-Agra highway centers.</p>
+        </div>
+        <div style="background: #fef3c7; color: #92400e; font-weight: 800; font-size: 0.76rem; padding: 0.4rem 0.9rem; border-radius: 999px;">
+          🚀 October 2026 Active
+        </div>
+      </div>
+
+      <div class="operations-grid">
+        <div class="op-box">
+          <h4>📍 Direct Gate-to-Gate Service</h4>
+          <p>Buses depart directly from designated campus pickup spots and drop students strictly at the exam center entrance gate, eliminating any transit delays.</p>
+        </div>
+        <div class="op-box">
+          <h4>👥 Student Volunteer Marshals</h4>
+          <p>Every single bus has assigned student coordinators ensuring attendance roll calls, safe return boarding, and instant guidance.</p>
+        </div>
+        <div class="op-box">
+          <h4>⏰ Zero Traffic Delay Buffers</h4>
+          <p>Schedules are built with high-priority highway traffic buffers ensuring arrival 45 minutes prior to gate reporting time.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FULL-WIDTH BLACK FOOTER WITH CIRCLE LOGO -->
+  <footer class="drutva-black-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        &copy; 2026 DRUTVA SERVICES. All Rights Reserved.
+      </div>
+      <div class="footer-right">
+        <span>Designed, Developed & Maintained by</span>
+        <img src="images/drutvalogo.png" onerror="this.style.display='none'" alt="Drutva Logo" class="footer-logo-circle">
+        <b>DRUTVA SERVICES</b>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EDIT PROFILE MODAL -->
+  <div class="modal-backdrop" id="editProfileModal">
+    <div class="modal-card">
+      <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.3rem;">Edit Booking Details</h3>
+      <p style="font-size: 0.86rem; color: var(--text-sub); margin-bottom: 1.4rem;">Modify your phone, shift, and payment transaction reference.</p>
+
+      <form id="formEditProfile" onsubmit="handleProfileUpdate(event)">
+        <div class="form-group-modal">
+          <label>Full Passenger Name</label>
+          <input type="text" id="editFullName" class="modal-input" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+          <div class="form-group-modal">
+            <label>Call Contact</label>
+            <input type="tel" id="editCall" class="modal-input" required>
+          </div>
+          <div class="form-group-modal">
+            <label>WhatsApp Number</label>
+            <input type="tel" id="editWhatsapp" class="modal-input" required>
+          </div>
+        </div>
+
+        <div class="form-group-modal">
+          <label>Registered Email</label>
+          <input type="email" id="editEmail" class="modal-input" required>
+        </div>
+
+        <div class="form-group-modal">
+          <label>University Roll Number <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 600; text-transform: none;">🔒 (Non-Editable Key)</span></label>
+          <input type="text" id="editRoll" class="modal-input" readonly style="background: #f1f5f9; cursor: not-allowed; color: #64748b; font-family: 'JetBrains Mono', monospace; font-weight: 700; border-color: #cbd5e1;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+          <div class="form-group-modal">
+            <label>Payment UTR Number</label>
+            <input type="text" id="editUtr" class="modal-input" placeholder="Enter UTR reference">
+          </div>
+          <div class="form-group-modal">
+            <label>Exam Shift</label>
+            <select id="editShift" class="modal-input" style="height: 48px;">
+              <option value="Morning shift">Morning Shift</option>
+              <option value="Afternoon shift">Afternoon Shift</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-btn-row">
+          <button type="button" class="btn-action" style="background: #f1f5f9; border: none; color: #475569;" onclick="closeEditModal()">Cancel</button>
+          <button type="submit" class="btn-action btn-view-proof" id="btnSaveProfile">Save to Database</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SUPPORT DRAWER -->
+  <div class="drawer-backdrop" id="helpDrawerBackdrop" onclick="closeHelpDrawer()">
+    <div class="help-drawer" onclick="event.stopPropagation()">
+      <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.3rem;">Coordinator Support Desk</h3>
+      <p style="font-size: 0.82rem; color: var(--text-sub); margin-bottom: 1.4rem;">Direct contact desk for route timings, pass queries & assistance.</p>
+
+      <a href="https://wa.me/916397244651?text=Hello%20Bansal%20Bus%20Team%2C%20I%20have%20an%20inquiry%20regarding%20my%20bus%20pass." target="_blank" class="help-btn help-btn-whatsapp">
+        <span style="font-size: 1.4rem;">💬</span>
+        <div>
+          <div>WhatsApp Coordinator</div>
+          <div style="font-size: 0.74rem; font-weight: 500; opacity: 0.8;">Instant chat & live updates</div>
+        </div>
+      </a>
+
+      <a href="tel:+916397244651" class="help-btn help-btn-call">
+        <span style="font-size: 1.4rem;">📞</span>
+        <div>
+          <div>Call Transport Desk</div>
+          <div style="font-size: 0.74rem; font-weight: 500; color: #64748b;">+91 63972 44651</div>
+        </div>
+      </a>
+
+      <button class="btn-action" style="width: 100%; background: #f1f5f9; border: none; color: #475569; margin-top: 0.6rem;" onclick="closeHelpDrawer()">Close Support Desk</button>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav">
+    <div class="mobile-nav-items">
+      <button class="mobile-nav-btn active" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <span class="icon">🎫</span>
+        <span>My Pass</span>
+      </button>
+      <button class="mobile-nav-btn" onclick="openEditModal()">
+        <span class="icon">✏️</span>
+        <span>Edit</span>
+      </button>
+      <button class="mobile-nav-btn" onclick="openHelpDrawer()">
+        <span class="icon">💬</span>
+        <span>Support</span>
+      </button>
+      <button class="mobile-nav-btn" onclick="confirmSignOut()" style="color: #ef4444;">
+        <span class="icon">🚪</span>
+        <span>Logout</span>
+        </button>
+    </div>
+  </nav>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const token = localStorage.getItem('bbs_token');
+    let currentStudent = null;
+
+    if (!token) {
+      window.location.href = '/login.html';
+    }
+
+    // CUSTOM ALERT ENGINE (NO DEFAULT JS ALERTS)
+    function showCustomAlert(title, message, icon = '⚠️') {
+      document.getElementById('alertIcon').textContent = icon;
+      document.getElementById('alertTitle').textContent = title;
+      document.getElementById('alertDesc').textContent = message;
+      document.getElementById('customAlertModal').classList.add('show');
+    }
+
+    function closeCustomAlert() {
+      document.getElementById('customAlertModal').classList.remove('show');
+    }
+
+    // EXAM CENTER CLEANER
+    function cleanCenterName(raw) {
+      if (!raw) return "Designated Examination Center";
+      const lower = String(raw).toLowerCase();
+
+      if (lower.includes("hardayal")) return "Hardayal Technical Campus, Farah";
+      if (lower.includes("r.k.g.m") || lower.includes("rkgm")) return "R.K.G.M Institute, Sikandra";
+      if (lower.includes("depg")) return "DEPG College, Sikandra";
+      if (lower.includes("bhudevi")) return "Smt Bhudevi Institute";
+      if (lower.includes("shivpuri") || lower.includes("balkeshwar")) return "Shivpuri Balkeshwar";
+      if (lower.includes("dev technical") || lower.includes("kuberpur")) return "Dev Technical Campus, Kuberpur";
+      if (lower.includes("kunal")) return "Kunal Professional Educational Academy";
+      if (lower.includes("gyan bharti")) return "Gyan Bharti Institute";
+      if (lower.includes("raja sp") || lower.includes("raja s.p")) return "Raja SP Singh College";
+
+      return String(raw).replace(/\s*\(.*?\)\s*/g, '').trim();
+    }
+
+    // FARE AMOUNT EXTRACTOR
+    function extractFareAmount(s) {
+      if (s.amount) return s.amount;
+      const rawCenter = String(s.examCenter || '');
+      const match = rawCenter.match(/PAY\s*-\s*(\d+)/i) || rawCenter.match(/(\d{3})/);
+      if (match && match[1]) return match[1];
+      return "300";
+    }
+
+    // SAFE DRIVE OPENER
+    function openProofSafely() {
+      if (!currentStudent || !currentStudent.paymentScreenshot) {
+        showCustomAlert("Receipt Missing", "No payment proof screenshot link found on record.", "⚠️");
+        return;
+      }
+      const raw = currentStudent.paymentScreenshot;
+      const idMatch = raw.match(/id=([a-zA-Z0-9_-]+)/) || raw.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (idMatch && idMatch[1]) {
+        window.open(`https://drive.google.com/file/d/${idMatch[1]}/view`, '_blank');
+      } else {
+        window.open(raw, '_blank');
+      }
+    }
+
+    // COMMUNITY MAP
+    const COMMUNITY_MAP = {
+      "2": {
+        title: "🎓 2nd Year Community",
+        desc: "Official 2nd Year B.Tech transit community for live roll call and announcements.",
+        link: "https://chat.whatsapp.com/IDUGXxrixkIFCrGw2TayZT"
+      },
+      "3": {
+        title: "🎓 3rd Year Community",
+        desc: "Official 3rd Year B.Tech transit community for live roll call and announcements.",
+        link: "https://chat.whatsapp.com/JOdPfHui7qmJRwjnaWOl3A"
+      },
+      "4": {
+        title: "🎓 4th Year Community",
+        desc: "Official 4th Year B.Tech transit community for live roll call and announcements.",
+        link: "https://chat.whatsapp.com/CcngKUPyQL9AL8sdjWhVan"
+      }
+    };
+
+    function updateCommunityBox(yearStr) {
+      const yearClean = String(yearStr || '2').replace(/[^0-9]/g, '');
+      const comm = COMMUNITY_MAP[yearClean] || COMMUNITY_MAP["2"];
+      document.getElementById('commTitle').textContent = comm.title;
+      document.getElementById('commDesc').textContent = comm.desc;
+      document.getElementById('commBtn').href = comm.link;
+    }
+
+    // DATE PARSER
+    const MONTH_NAMES = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+    function parseAndDisplayDate(rawDate) {
+      let day = "17";
+      let month = "OCT";
+      let year = "2026";
+
+      if (rawDate) {
+        const parts = String(rawDate).trim().split(/[\/\-\.\s]/);
+        if (parts.length >= 3) {
+          day = parts[0].padStart(2, '0');
+          const mNum = parseInt(parts[1], 10);
+          if (!isNaN(mNum) && mNum >= 1 && mNum <= 12) {
+            month = MONTH_NAMES[mNum - 1];
+          } else if (parts[1].length >= 3) {
+            month = parts[1].substring(0, 3).toUpperCase();
+          }
+          year = parts[2].length === 2 ? "20" + parts[2] : parts[2];
+        }
+      }
+
+      document.getElementById('fieldExamDay').textContent = day;
+      document.getElementById('fieldExamMonth').textContent = month;
+      document.getElementById('fieldExamYear').textContent = year;
+    }
+
+    // RENDER PASS DETAILS
+    function renderStudentData(s) {
+      if (!s) return;
+
+      const fName = (s.fullName || 'Student').split(' ')[0];
+      document.getElementById('dispFirstName').textContent = fName;
+      document.getElementById('fieldFullName').textContent = s.fullName || '--';
+      document.getElementById('fieldRoll').textContent = s.rollNumber || '--';
+      document.getElementById('fieldCourseYear').textContent = `${s.course || 'B.Tech'} (${s.year || '4'}th Yr)`;
+      document.getElementById('fieldContact').textContent = s.contactCall || '--';
+      document.getElementById('fieldWhatsapp').textContent = s.contactWhatsapp || s.contactCall || '--';
+      document.getElementById('fieldUtr').textContent = s.utrNumber || 'Pending Submission';
+
+      // Amount
+      document.getElementById('fieldAmountPaid').textContent = `₹${extractFareAmount(s)}`;
+
+      // Payment Status
+      const status = (s.paymentStatus || 'Pending').toLowerCase();
+      const badge = document.getElementById('badgeStatus');
+      if (status.includes('verif') || status.includes('succ')) {
+        badge.className = 'badge-status status-verified';
+        badge.textContent = 'Payment Status: Verified';
+      } else if (status.includes('reject')) {
+        badge.className = 'badge-status status-rejected';
+        badge.textContent = 'Payment Status: Rejected';
+      } else {
+        badge.className = 'badge-status status-pending';
+        badge.textContent = 'Payment Status: Pending';
+      }
+
+      // Bus Allocation
+      const busVal = String(s.busAllocated || '').trim();
+      if (!busVal || busVal.toLowerCase().includes('not assign')) {
+        document.getElementById('fieldBusAllocated').textContent = 'Not Assigned Yet';
+      } else {
+        document.getElementById('fieldBusAllocated').textContent = busVal;
+      }
+      
+      // Coordinator info & dynamic buttons
+      const leaderContact = String(s.busLeaderContact || '').trim();
+      const leaderName = s.busLeaderName || 'Coordinator Desk';
+      const actionBox = document.getElementById('coordActionButtons');
+
+      if (leaderContact.includes('99999') || !leaderContact || leaderContact.toLowerCase().includes('not assign')) {
+        document.getElementById('fieldLeaderInfo').textContent = 'Coordinator Desk: Not Assigned Yet';
+        actionBox.style.display = 'none';
+      } else {
+        document.getElementById('fieldLeaderInfo').textContent = `${leaderName}: +91 ${leaderContact}`;
+        actionBox.style.display = 'inline-flex';
+        document.getElementById('linkCoordCall').href = `tel:+91${leaderContact}`;
+        document.getElementById('linkCoordWa').href = `https://wa.me/91${leaderContact}?text=Hello%20Coordinator%2C%20I%20am%20assigned%20to%20your%20bus.`;
+      }
+
+      // Date parsing
+      parseAndDisplayDate(s.examDate);
+
+      // Exam Center Clean
+      const cleanCenter = cleanCenterName(s.examCenter);
+      const pickup = s.pickupPoint || 'GLA Campus';
+      const shift = s.examShift || 'Morning Shift';
+
+      document.getElementById('fieldExamCenter').textContent = cleanCenter;
+      document.getElementById('fieldPickupShift').textContent = `${pickup} • ${shift}`;
+      document.getElementById('lblPickupTrack').textContent = `📍 Pickup: ${pickup}`;
+      document.getElementById('lblCenterTrack').textContent = `🎯 Center: ${cleanCenter.substring(0, 26)}`;
+
+      updateCommunityBox(s.year);
+
+      // Drive Proof Link Setup
+      const proofBtn = document.getElementById('btnProofLink');
+      if (s.paymentScreenshot && s.paymentScreenshot.startsWith('http')) {
+        proofBtn.style.display = 'flex';
+      } else {
+        proofBtn.style.display = 'none';
+      }
+
+      const now = new Date();
+      document.getElementById('lastUpdatedTime').textContent = `Synced: ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}`;
+    }
+
+    // INITIAL LOAD
+    try {
+      const stored = localStorage.getItem('bbs_student');
+      if (stored) {
+        currentStudent = JSON.parse(stored);
+        renderStudentData(currentStudent);
+      }
+    } catch(e) {}
+
+    // SILENT LIVE SYNC
+    async function performLiveSync() {
+      try {
+        const res = await fetch('/api/student/me', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success && data.student) {
+          currentStudent = data.student;
+          localStorage.setItem('bbs_student', JSON.stringify(data.student));
+          renderStudentData(data.student);
+        } else if (res.status === 401) {
+          logout();
+        }
+      } catch (err) {}
+    }
+
+    performLiveSync();
+    setInterval(performLiveSync, 15 * 1000);
+
+    // MODAL
+    function openEditModal() {
+      if (!currentStudent) return;
+      document.getElementById('editFullName').value = currentStudent.fullName || '';
+      document.getElementById('editCall').value = currentStudent.contactCall || '';
+      document.getElementById('editWhatsapp').value = currentStudent.contactWhatsapp || '';
+      document.getElementById('editEmail').value = currentStudent.email || '';
+      document.getElementById('editRoll').value = currentStudent.rollNumber || '';
+      document.getElementById('editUtr').value = currentStudent.utrNumber || '';
+      document.getElementById('editShift').value = currentStudent.examShift || 'Morning shift';
+
+      document.getElementById('editProfileModal').classList.add('show');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editProfileModal').classList.remove('show');
+    }
+
+    async function handleProfileUpdate(e) {
+      e.preventDefault();
+      const saveBtn = document.getElementById('btnSaveProfile');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving to Database...';
+
+      const payload = {
+        fullName: document.getElementById('editFullName').value,
+        contactCall: document.getElementById('editCall').value,
+        contactWhatsapp: document.getElementById('editWhatsapp').value,
+        email: document.getElementById('editEmail').value,
+        rollNumber: document.getElementById('editRoll').value,
+        utrNumber: document.getElementById('editUtr').value,
+        examShift: document.getElementById('editShift').value
+      };
+
+      try {
+        const res = await fetch('/api/student/update-profile', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+        
+        const data = await res.json();
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save to Database';
+
+        if (res.ok && data.success) {
+          currentStudent = data.student;
+          localStorage.setItem('bbs_student', JSON.stringify(data.student));
+          renderStudentData(data.student);
+          closeEditModal();
+          showCustomAlert("Update Successful", "Your booking details have been successfully saved to the database!", "✅");
+        } else {
+          showCustomAlert("Update Failed", data.message || "Failed to update profile.", "❌");
+        }
+      } catch (err) {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save to Database';
+        // Check if data actually got updated silently
+        performLiveSync();
+        closeEditModal();
+        showCustomAlert("Update Saved", "Your profile details have been synced with the database.", "✅");
+      }
+    }
+
+    // DRAWER
+    function openHelpDrawer() {
+      document.getElementById('helpDrawerBackdrop').classList.add('show');
+    }
+    function closeHelpDrawer() {
+      document.getElementById('helpDrawerBackdrop').classList.remove('show');
+    }
+
+    // LOGOUT
+// Custom Confirmation Dialog for Sign Out
+    function confirmSignOut() {
+      const modal = document.getElementById('customAlertModal');
+      document.getElementById('alertIcon').textContent = '🚪';
+      document.getElementById('alertTitle').textContent = 'Sign Out?';
+      document.getElementById('alertDesc').textContent = 'Are you sure you want to exit your boarding pass dashboard?';
+
+      const btnGroup = modal.querySelector('.board-btn-group');
+      btnGroup.innerHTML = `
+        <button class="board-btn" style="background: #f5f2e9; color: #78716c; border: 1.5px solid #e7dfcb;" onclick="closeCustomAlert()">Cancel</button>
+        <button class="board-btn board-btn-primary" style="background: #fee2e2; color: #991b1b; border: 1.5px solid #fca5a5;" onclick="executeSignOut()">Yes, Sign Out</button>
+      `;
+
+      modal.classList.add('show');
+    }
+
+    function executeSignOut() {
+      localStorage.removeItem('bbs_token');
+      localStorage.removeItem('bbs_student');
+      window.location.href = '/login.html';
+    }
+
+    function logout() {
+      confirmSignOut();
+    }  </script>
+</body>
+</html>

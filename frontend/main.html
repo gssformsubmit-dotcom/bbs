@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bansal Bus Service | Official NPTEL Exam Conveyance (Oct 2026)</title>
+  <meta name="description" content="Independent student-led private transit collective facilitating punctual, comfortable campus-to-centre bus conveyance for B.Tech engineering students appearing for NPTEL examinations in October 2026.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS Design System & Color Tokens
+       Base: Warm Cream / Canvas White (#f6f3eb, #fdfcf9)
+       Accent: Rich Amber Yellow (#f5be38 / #e0ab29) & Bold Crimson Red (#dc2626)
+       Contrast Dark: Charcoal Obsidian (#18181b / #1c1917)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --bg-canvas: #f6f3eb;
+      --bg-canvas-subtle: #fdfcf9;
+      --bg-white: #ffffff;
+      --bg-card: #ffffff;
+      
+      --amber-yellow: #f5be38;
+      --amber-hover: #e0ab29;
+      --amber-light: #fef7e0;
+      --amber-glow: rgba(245, 190, 56, 0.4);
+
+      --crimson-red: #dc2626;
+      --crimson-hover: #b91c1c;
+      --crimson-subtle: rgba(220, 38, 38, 0.08);
+
+      --charcoal-obsidian: #18181b;
+      --charcoal-deep: #1c1917;
+      --charcoal-light: #27272a;
+      
+      --text-main: #18181b;
+      --text-muted: #52525b;
+      --text-subtle: #71717a;
+      --border-color: #e4dfd3;
+      --border-hover: #d4cebe;
+
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-display: 'Space Grotesk', var(--font-body);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 4px rgba(24, 24, 27, 0.04);
+      --shadow-md: 0 8px 24px rgba(24, 24, 27, 0.06);
+      --shadow-lg: 0 16px 36px rgba(24, 24, 27, 0.09);
+      --shadow-amber: 0 10px 25px -4px rgba(245, 190, 56, 0.45);
+      --shadow-crimson: 0 10px 25px -4px rgba(220, 38, 38, 0.35);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img, svg {
+      vertical-align: middle;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ==========================================================================
+       Top Alert Banner
+       ========================================================================== */
+    .top-announcement {
+      background-color: var(--charcoal-obsidian);
+      color: #f4f4f5;
+      font-size: 0.82rem;
+      padding: 0.55rem 1rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      border-bottom: 2px solid var(--amber-yellow);
+      position: relative;
+      z-index: 1001;
+    }
+
+    .top-announcement strong {
+      color: var(--amber-yellow);
+      font-weight: 700;
+    }
+
+    .top-announcement .badge-pill {
+      background: rgba(220, 38, 38, 0.25);
+      color: #fca5a5;
+      border: 1px solid rgba(220, 38, 38, 0.4);
+      padding: 0.12rem 0.5rem;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* ==========================================================================
+       Header & Navigation Bar
+       ========================================================================== */
+    .header-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(253, 252, 249, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .header-nav.scrolled {
+      box-shadow: var(--shadow-md);
+      background: rgba(253, 252, 249, 0.96);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    /* Logo & Tagline */
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .logo-emblem {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, var(--charcoal-deep) 0%, #2e2a27 100%);
+      border: 2px solid var(--amber-yellow);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(24, 24, 27, 0.12);
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .brand-logo:hover .logo-emblem {
+      transform: rotate(-3deg) scale(1.05);
+    }
+
+    .logo-emblem svg {
+      width: 26px;
+      height: 26px;
+      color: var(--amber-yellow);
+    }
+
+    .brand-text-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 1.22rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--charcoal-obsidian);
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .brand-name span.accent {
+      color: var(--crimson-red);
+    }
+
+    .brand-tagline {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-top: 0.15rem;
+    }
+
+    /* Desktop Navigation Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+      position: relative;
+      padding: 0.4rem 0;
+    }
+
+    .nav-link:hover {
+      color: var(--charcoal-obsidian);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--crimson-red);
+      transition: width 0.25s ease;
+      border-radius: var(--radius-full);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Header Action CTAs */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0.68rem 1.25rem;
+      border-radius: var(--radius-md);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      white-space: nowrap;
+      border: 1.5px solid transparent;
+    }
+
+    .btn-ghost-dark {
+      background: transparent;
+      color: var(--charcoal-obsidian);
+      border-color: var(--charcoal-obsidian);
+    }
+
+    .btn-ghost-dark:hover {
+      background: var(--charcoal-obsidian);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-amber-solid {
+      background: var(--amber-yellow);
+      color: var(--charcoal-obsidian);
+      border-color: var(--amber-yellow);
+      box-shadow: var(--shadow-amber);
+    }
+
+    .btn-amber-solid:hover {
+      background: var(--amber-hover);
+      border-color: var(--amber-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -4px rgba(245, 190, 56, 0.6);
+    }
+
+    .btn-crimson-solid {
+      background: var(--crimson-red);
+      color: #ffffff;
+      border-color: var(--crimson-red);
+      box-shadow: var(--shadow-crimson);
+    }
+
+    .btn-crimson-solid:hover {
+      background: var(--crimson-hover);
+      border-color: var(--crimson-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -4px rgba(220, 38, 38, 0.5);
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      padding: 0.4rem;
+      color: var(--charcoal-obsidian);
+      cursor: pointer;
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      display: none;
+      background: var(--bg-canvas-subtle);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.2rem 1.5rem 1.8rem;
+    }
+
+    .mobile-drawer.open {
+      display: block;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .mobile-nav-list .nav-link {
+      font-size: 1.05rem;
+      padding: 0.3rem 0;
+      display: block;
+    }
+
+    .mobile-drawer-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    /* ==========================================================================
+       Hero Section
+       ========================================================================== */
+    .hero-section {
+      padding: 4.5rem 0 3.5rem;
+      position: relative;
+      background: radial-gradient(circle at 80% 20%, rgba(245, 190, 56, 0.15) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 80%, rgba(220, 38, 38, 0.08) 0%, transparent 50%),
+                  var(--bg-canvas);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .hero-badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--bg-white);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--charcoal-obsidian);
+      margin-bottom: 1.4rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-badge-tag .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--crimson-red);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: 3.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--charcoal-obsidian);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-headline .highlight-amber {
+      position: relative;
+      display: inline-block;
+      color: var(--charcoal-deep);
+    }
+
+    .hero-headline .highlight-amber::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 6px;
+      width: 100%;
+      height: 12px;
+      background: rgba(245, 190, 56, 0.45);
+      z-index: -1;
+      border-radius: 4px;
+    }
+
+    .hero-subheadline {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+      max-width: 580px;
+    }
+
+    /* Quick Highlight Badges Grid */
+    .hero-highlights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .highlight-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--amber-yellow);
+    }
+
+    .highlight-icon-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--amber-light);
+      color: var(--charcoal-obsidian);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .highlight-text {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--charcoal-obsidian);
+      line-height: 1.3;
+    }
+
+    .highlight-text small {
+      display: block;
+      font-weight: 500;
+      color: var(--text-subtle);
+      font-size: 0.75rem;
+    }
+
+    /* Hero CTA Row */
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-ctas .btn {
+      padding: 0.9rem 1.65rem;
+      font-size: 0.98rem;
+    }
+
+    /* Early Bird Base Fare Notice Pill */
+    .pricing-notice-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 190, 56, 0.15);
+      border: 1px dashed #d99b1a;
+      border-radius: var(--radius-full);
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      color: #92400e;
+      font-weight: 600;
+    }
+
+    .pricing-notice-pill svg {
+      color: var(--crimson-red);
+      flex-shrink: 0;
+    }
+
+    /* Hero Visual Card / Fleet Showcase */
+    .hero-visual-card {
+      background: linear-gradient(145deg, #1f1d1a 0%, #151412 100%);
+      color: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 2.2rem;
+      border: 2px solid #2e2a24;
+      box-shadow: var(--shadow-lg), 0 0 50px rgba(245, 190, 56, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual-card::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(245, 190, 56, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .fleet-status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1.1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .fleet-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(220, 38, 38, 0.2);
+      border: 1px solid var(--crimson-red);
+      color: #fca5a5;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+    }
+
+    .transit-live-tag {
+      font-size: 0.74rem;
+      color: #a1a1aa;
+      font-family: var(--font-display);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .transit-live-tag .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    .fleet-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #ffffff;
+    }
+
+    .fleet-subtitle {
+      font-size: 0.85rem;
+      color: #d4d4d8;
+      margin-bottom: 1.5rem;
+      line-height: 1.45;
+    }
+
+    /* Bus Boarding Pass Simulation Card */
+    .boarding-pass-preview {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .pass-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #a1a1aa;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .pass-route-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .route-node {
+      font-weight: 800;
+      font-size: 1.15rem;
+      font-family: var(--font-display);
+      color: var(--amber-yellow);
+    }
+
+    .route-arrow {
+      color: #71717a;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+    }
+
+    .pass-details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 0.75rem;
+    }
+
+    .pass-item-label {
+      font-size: 0.68rem;
+      color: #a1a1aa;
+      text-transform: uppercase;
+    }
+
+    .pass-item-val {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .pass-footer-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--amber-yellow) 0%, var(--amber-hover) 100%);
+      color: var(--charcoal-obsidian);
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      transition: all 0.2s ease;
+    }
+
+    .pass-footer-btn:hover {
+      box-shadow: 0 0 25px rgba(245, 190, 56, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       Examination Centers Section
+       ========================================================================== */
+    .section-wrap {
+      padding: 4.8rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--crimson-red);
+      background: var(--crimson-subtle);
+      padding: 0.25rem 0.8rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--charcoal-obsidian);
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* Search & Filter Bar */
+    .center-search-wrap {
+      max-width: 480px;
+      margin: -1.2rem auto 2.5rem;
+      position: relative;
+    }
+
+    .center-search-input {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.85rem;
+      background: var(--bg-white);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .center-search-input:focus {
+      border-color: var(--charcoal-obsidian);
+      box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.08);
+    }
+
+    .center-search-icon {
+      position: absolute;
+      left: 1.05rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-subtle);
+    }
+
+    /* Centers Interactive Grid */
+    .centers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .center-card {
+      background: var(--bg-white);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      display: flex;
+      gap: 1rem;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .center-card:hover {
+      border-color: var(--amber-yellow);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .center-pin-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--amber-light);
+      color: var(--crimson-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .center-card:hover .center-pin-box {
+      transform: scale(1.08);
+      background: rgba(220, 38, 38, 0.1);
+    }
+
+    .center-content {
+      flex: 1;
+    }
+
+    .center-name {
+      font-family: var(--font-display);
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--charcoal-obsidian);
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+
+    .center-locality {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .center-meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--charcoal-obsidian);
+      background: #f4f1ea;
+      padding: 0.18rem 0.55rem;
+      border-radius: 6px;
+    }
+
+    .center-note-banner {
+      background: #ffffff;
+      border: 1.5px solid var(--amber-yellow);
+      border-left: 6px solid var(--crimson-red);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+      margin-top: 1.5rem;
+    }
+
+    .center-note-banner .note-text {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--charcoal-obsidian);
+    }
+
+    /* ==========================================================================
+       Year-Wise Registration Cards Section
+       ========================================================================== */
+    .registration-section {
+      background: var(--bg-canvas-subtle);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 5.5rem 0;
+    }
+
+    .year-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    .year-card {
+      background: var(--bg-white);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 2.2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .year-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Distinct header color accents */
+    .year-card.card-2nd {
+      border-top: 6px solid var(--amber-yellow);
+    }
+    .year-card.card-3rd {
+      border-top: 6px solid var(--crimson-red);
+    }
+    .year-card.card-4th {
+      border-top: 6px solid var(--charcoal-obsidian);
+    }
+
+    .year-badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .year-card-icon {
+      font-size: 2.3rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .year-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--charcoal-obsidian);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .year-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.8rem;
+      min-height: 44px;
+    }
+
+    .year-perks-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .year-perk-item {
+      font-size: 0.84rem;
+      color: var(--charcoal-obsidian);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .year-perk-item svg {
+      color: var(--crimson-red);
+      flex-shrink: 0;
+    }
+
+    .year-actions-group {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .btn-form-action {
+      width: 100%;
+      background: var(--charcoal-obsidian);
+      color: #ffffff;
+      padding: 0.85rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-form-action:hover {
+      background: #000000;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-whatsapp-action {
+      width: 100%;
+      background: #25d366;
+      color: #ffffff;
+      padding: 0.85rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-whatsapp-action:hover {
+      background: #1eb956;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+    }
+
+    /* ==========================================================================
+       Schedule / Dates Section
+       ========================================================================== */
+    .schedule-section {
+      padding: 5rem 0;
+      background: var(--bg-canvas);
+    }
+
+    .dates-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .date-card {
+      background: var(--bg-white);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease;
+    }
+
+    .date-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--amber-yellow);
+    }
+
+    .date-pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--crimson-red);
+      background: var(--crimson-subtle);
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 0.75rem;
+    }
+
+    .date-number {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--charcoal-obsidian);
+      line-height: 1.1;
+      margin-bottom: 0.2rem;
+    }
+
+    .date-month {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Shift Details Box */
+    .shift-box {
+      background: var(--bg-white);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .shift-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .shift-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--charcoal-obsidian);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .shift-timeline-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.8rem;
+    }
+
+    .timeline-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.86rem;
+    }
+
+    .timeline-time {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--crimson-red);
+      min-width: 70px;
+    }
+
+    /* ==========================================================================
+       How It Works Section (3 Simple Steps)
+       ========================================================================== */
+    .how-it-works-section {
+      background: var(--bg-canvas-subtle);
+      padding: 5rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      position: relative;
+    }
+
+    .step-card {
+      background: var(--bg-white);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 1.8rem;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+    }
+
+    .step-card:hover {
+      border-color: var(--charcoal-obsidian);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .step-number-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--charcoal-obsidian);
+      color: var(--amber-yellow);
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.4rem;
+      box-shadow: 0 6px 16px rgba(24, 24, 27, 0.15);
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--charcoal-obsidian);
+      margin-bottom: 0.6rem;
+    }
+
+    .step-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .step-link-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--crimson-red);
+    }
+
+    /* ==========================================================================
+       Need Help / Support Section
+       ========================================================================== */
+    .support-section {
+      padding: 5.2rem 0;
+      background: var(--bg-canvas);
+    }
+
+    .support-banner-card {
+      background: linear-gradient(135deg, #18181b 0%, #221f1b 100%);
+      color: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 3.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+      border: 2px solid #2e2a24;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .support-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .support-desc {
+      font-size: 0.98rem;
+      color: #d4d4d8;
+      margin-bottom: 1.6rem;
+      line-height: 1.6;
+    }
+
+    .support-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245, 190, 56, 0.15);
+      border: 1px solid rgba(245, 190, 56, 0.3);
+      color: var(--amber-yellow);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .support-buttons-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .support-btn {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.96rem;
+      transition: all 0.25s ease;
+      text-align: left;
+    }
+
+    .support-btn-phone {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    .support-btn-phone:hover {
+      background: #ffffff;
+      color: var(--charcoal-obsidian);
+      transform: translateY(-2px);
+    }
+
+    .support-btn-whatsapp {
+      background: #25d366;
+      border: 1px solid #25d366;
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+    }
+
+    .support-btn-whatsapp:hover {
+      background: #1eb956;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(37, 211, 102, 0.45);
+    }
+
+    .support-btn-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .support-btn-whatsapp .support-btn-icon {
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .support-btn-text small {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 500;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* ==========================================================================
+       Footer Section
+       ========================================================================== */
+    .footer-section {
+      background: #121110;
+      color: #a1a1aa;
+      padding: 4.5rem 0 2rem;
+      border-top: 3px solid var(--amber-yellow);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .footer-brand-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.86rem;
+      line-height: 1.6;
+      color: #a1a1aa;
+      margin-bottom: 1.2rem;
+      max-width: 380px;
+    }
+
+    .footer-tagline-quote {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--amber-yellow);
+      display: block;
+      font-weight: 600;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-link-item a {
+      font-size: 0.86rem;
+      color: #a1a1aa;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-link-item a:hover {
+      color: var(--amber-yellow);
+    }
+
+    .footer-bottom-bar {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: #71717a;
+    }
+
+    .drutva-credit {
+      color: #e4e4e7;
+      font-weight: 600;
+    }
+
+    .drutva-credit strong {
+      color: var(--amber-yellow);
+    }
+
+    /* ==========================================================================
+       Responsive Media Queries
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .year-cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .dates-container {
+        grid-template-columns: 1fr;
+      }
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+      .shift-box {
+        grid-template-columns: 1fr;
+      }
+      .support-banner-card {
+        grid-template-columns: 1fr;
+        padding: 2.2rem 1.8rem;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .nav-links, .header-actions {
+        display: none;
+      }
+      .mobile-menu-toggle {
+        display: block;
+      }
+      .hero-headline {
+        font-size: 2.3rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-highlights-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-ctas {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .hero-ctas .btn {
+        width: 100%;
+      }
+      .centers-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      gap: 1.4rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 1.2rem;
+    }
+
+    .brand-logo-img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid var(--amber-yellow);
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(24, 24, 27, 0.08);
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--charcoal-obsidian);
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.3rem;
+      list-style: none;
+      flex-shrink: 1;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- Sticky Glassmorphic Navigation Bar -->
+  <header class="header-nav" id="mainHeader">
+    <div class="container">
+      <div class="nav-wrapper">
+        
+        <!-- Brand Logo -->
+        <a href="#top" class="brand-logo" aria-label="Bansal Bus Service Homepage">
+          <img src="images/bbslogo.png" onerror="this.src='images/login_image.png'" alt="BBS Logo" class="brand-logo-img">
+          <div class="brand-text-group">
+            <div class="brand-name">
+              BANSAL <span class="accent">BUS</span> SERVICE
+            </div>
+            <div class="brand-tagline">
+              BEST IN CLASS
+            </div>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Items -->
+        <nav aria-label="Primary Navigation">
+          <ul class="nav-links">
+            <li><a href="#centers" class="nav-link">Exam Centers</a></li>
+            <li><a href="#register" class="nav-link">Booking Links</a></li>
+            <li><a href="#schedule" class="nav-link">Schedule</a></li>
+            <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+            <li><a href="#support" class="nav-link">Need Help?</a></li>
+          </ul>
+        </nav>
+
+        <!-- Header Action CTAs -->
+        <div class="header-actions">
+          <a href="login.html" class="btn btn-ghost-dark" title="Open Boarding Pass Portal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" x2="3" y1="12" y2="12"/>
+            </svg>
+            <span>Portal Login</span>
+          </a>
+          <a href="#register" class="btn btn-amber-solid" title="Reserve Bus Seat via Google Form">
+            <span>Book Seat (Forms)</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/>
+              <path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Mobile Toggle Button -->
+        <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle Navigation Menu">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <ul class="mobile-nav-list">
+        <li><a href="#centers" class="nav-link mobile-link">Exam Centers</a></li>
+        <li><a href="#register" class="nav-link mobile-link">Booking Links</a></li>
+        <li><a href="#schedule" class="nav-link mobile-link">Schedule</a></li>
+        <li><a href="#how-it-works" class="nav-link mobile-link">Flow</a></li>
+        <li><a href="#support" class="nav-link mobile-link">Need Help?</a></li>
+      </ul>
+      <div class="mobile-drawer-actions">
+        <a href="login.html" class="btn btn-ghost-dark" style="width: 100%;">
+          <span>Portal Login</span>
+        </a>
+        <a href="#register" class="btn btn-amber-solid mobile-link" style="width: 100%;">
+          <span>Book Seat (Year-Wise Forms)</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section" id="top">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <!-- Hero Text Content -->
+          <div class="hero-content">
+            <div class="hero-badge-tag">
+              <span class="pulse-dot"></span>
+              <span>Independent Student-Led Private Transit Collective</span>
+            </div>
+
+            <h1 class="hero-headline">
+              Reliable, Hassle-Free Conveyance for Your <span class="highlight-amber">NPTEL Exam Journey</span>
+            </h1>
+
+            <p class="hero-subheadline">
+              Direct, punctual campus-to-centre bus transit for B.Tech engineering students appearing for Agra examination centers in October 2026. Managed by students, for students.
+            </p>
+
+            <!-- Quick Highlights Badges -->
+            <div class="hero-highlights-grid">
+              <div class="highlight-card">
+                <div class="highlight-icon-wrap">📅</div>
+                <div class="highlight-text">
+                  OCT 17 | 18 | 24
+                  <small>3 Critical Exam Dates Covered</small>
+                </div>
+              </div>
+              <div class="highlight-card">
+                <div class="highlight-icon-wrap">🛡️</div>
+                <div class="highlight-text">
+                  Direct & Punctual Transit
+                  <small>Zero hassle, gate-to-gate drops</small>
+                </div>
+              </div>
+              <div class="highlight-card">
+                <div class="highlight-icon-wrap">❄️</div>
+                <div class="highlight-text">
+                  Comfortable Fleet Options
+                  <small>Spacious AC & Non-AC Buses</small>
+                </div>
+              </div>
+              <div class="highlight-card">
+                <div class="highlight-icon-wrap">👥</div>
+                <div class="highlight-text">
+                  Student Co-ordinators
+                  <small>Dedicated volunteers onboard</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Main Hero Action Buttons -->
+            <div class="hero-ctas">
+              <a href="#register" class="btn btn-amber-solid">
+                <span>Register for Your Year</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14"/>
+                  <path d="m12 5 7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="login.html" class="btn btn-ghost-dark">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="18" x="3" y="3" rx="2"/>
+                  <path d="M7 7h10"/>
+                  <path d="M7 12h10"/>
+                  <path d="M7 17h10"/>
+                </svg>
+                <span>Access Boarding Pass<span>
+              </a>
+            </div>
+
+            <!-- Dynamic Pricing Notice (No hardcoded fare amount) -->
+            <div class="pricing-notice-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <span>Early-Bird Advantage: Reserve early for tier-1 minimum base fare allotment!</span>
+            </div>
+          </div>
+
+          <!-- Hero Visual Feature Card -->
+          <div class="hero-visual-card">
+            <div class="fleet-status-bar">
+              <div class="fleet-badge">OFFICIAL TRANSIT INITIATIVE</div>
+              <div class="transit-live-tag">
+                <span class="live-dot"></span>
+                <span>OCTOBER 2026 READY</span>
+              </div>
+            </div>
+
+            <div class="fleet-title">Bansal Bus Service Operations</div>
+            <div class="fleet-subtitle">
+              Coordinated direct routes connecting student hubs directly to Farah, Sikandra, and Kuberpur examination centers.
+            </div>
+
+            <!-- Simulated Digital Boarding Pass -->
+            <div class="boarding-pass-preview">
+              <div class="pass-header">
+                <span>NPTEL Transit Pass</span>
+                <span>Oct 2026 Session</span>
+              </div>
+              <div class="pass-route-row">
+                <div class="route-node">CAMPUS GATE</div>
+                <div class="route-arrow">
+                  <span>━━━━━</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+                <div class="route-node" style="color: #ffffff;">AGRA CENTERS</div>
+              </div>
+              <div class="pass-details-grid">
+                <div>
+                  <div class="pass-item-label">Fleet Unit</div>
+                  <div class="pass-item-val">Smooth Express</div>
+                </div>
+                <div>
+                  <div class="pass-item-label">Assigned Seat</div>
+                  <div class="pass-item-val" style="color: var(--amber-yellow);">Confirmed</div>
+                </div>
+              </div>
+            </div>
+
+            <a href="login.html" class="pass-footer-btn">
+              <span>View & Verify Your Transit Pass</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Examination Centers Section -->
+    <section class="section-wrap" id="centers">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag">Agra & Farah Region</span>
+          <h2 class="section-title">Examination Centers Covered</h2>
+          <p class="section-desc">
+            Direct round-trip conveyance provided for all official NPTEL exam venues across Agra and surrounding hubs.
+          </p>
+        </div>
+
+        <!-- Live Center Search -->
+        <div class="center-search-wrap">
+          <svg class="center-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input 
+            type="text" 
+            id="centerSearchInput" 
+            class="center-search-input" 
+            placeholder="Search your center (e.g. Hardayal, Sikandra, Kuberpur)..."
+            aria-label="Filter Examination Centers"
+          />
+        </div>
+
+        <!-- Interactive Centers Grid -->
+        <div class="centers-grid" id="centersGrid">
+          
+          <div class="center-card" data-center="hardayal technical campus farah">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">Hardayal Technical Campus</h3>
+              <div class="center-locality">📍 Farah Hub</div>
+              <span class="center-meta-tag">Direct Gate Drop & Pickup</span>
+            </div>
+          </div>
+
+          <div class="center-card" data-center="rkgm institute r.k.g.m sikandra agra">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">R.K.G.M Institute</h3>
+              <div class="center-locality">📍 Sikandra, Agra</div>
+              <span class="center-meta-tag">Designated Punctual Route</span>
+            </div>
+          </div>
+
+          <div class="center-card" data-center="depg college sikandra agra">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">DEPG College</h3>
+              <div class="center-locality">📍 Sikandra, Agra</div>
+              <span class="center-meta-tag">Punctual Return Transit</span>
+            </div>
+          </div>
+
+          <div class="center-card" data-center="smt bhudevi institute agra">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">Smt Bhudevi Institute</h3>
+              <div class="center-locality">📍 Agra Region</div>
+              <span class="center-meta-tag">Full Shift Attendance</span>
+            </div>
+          </div>
+
+          <div class="center-card" data-center="shivpuri balkeshwar agra">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">Shivpuri Balkeshwar</h3>
+              <div class="center-locality">📍 Balkeshwar, Agra</div>
+              <span class="center-meta-tag">Coordinated Batch Drops</span>
+            </div>
+          </div>
+
+          <div class="center-card" data-center="dev technical campus kuberpur agra">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">Dev Technical Campus</h3>
+              <div class="center-locality">📍 Kuberpur, Agra</div>
+              <span class="center-meta-tag">Dedicated Highway Corridor</span>
+            </div>
+          </div>
+
+          <div class="center-card" data-center="kunal professional educational academy agra">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">Kunal Professional Educational Academy</h3>
+              <div class="center-locality">📍 Agra Transit Point</div>
+              <span class="center-meta-tag">Student Volunteer Onsite</span>
+            </div>
+          </div>
+
+          <div class="center-card" data-center="gyan bharti institute agra">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">Gyan Bharti Institute</h3>
+              <div class="center-locality">📍 Agra Route Sector</div>
+              <span class="center-meta-tag">Direct Gate Drop</span>
+            </div>
+          </div>
+
+          <div class="center-card" data-center="raja sp singh college agra">
+            <div class="center-pin-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="center-content">
+              <h3 class="center-name">Raja SP Singh College</h3>
+              <div class="center-locality">📍 Agra Center Belt</div>
+              <span class="center-meta-tag">Guaranteed Return Transit</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Note Badge -->
+        <div class="center-note-banner">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--crimson-red); flex-shrink: 0;">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <div class="note-text">
+            <strong>Important Transit Guarantee:</strong> Direct drop and pickup from designated exam center gates. Early registrants secure guaranteed seat priority and tier-1 minimum base fare.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Year-Wise Registration & Community Hub -->
+    <section class="registration-section" id="register">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag">Batch Allotments</span>
+          <h2 class="section-title">Year-Wise Registration & Community Hub</h2>
+          <p class="section-desc">
+            Please register strictly through your respective B.Tech year portal to ensure seamless roll calls, bus pass issuance, and WhatsApp group route announcements.
+          </p>
+        </div>
+
+        <div class="year-cards-grid">
+          
+          <!-- Card 1: 2nd Year B.Tech Students -->
+          <article class="year-card card-2nd">
+            <div class="year-badge-top">
+            </div>
+            <span class="year-card-icon">🎓</span>
+            <h3 class="year-title">2nd Year B.Tech Students</h3>
+            <p class="year-desc">
+              Exclusive seat allotment & shift coordination for 2nd Year candidates appearing for October exam dates.
+            </p>
+
+            <ul class="year-perks-list">
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Dedicated 2nd Year Fleet Allotment</span>
+              </li>
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Live Roll-Call & WhatsApp Updates</span>
+              </li>
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Student Coordinator Onboard</span>
+              </li>
+            </ul>
+
+            <div class="year-actions-group">
+              <a 
+                href="https://forms.gle/a4NKnCTmWsVU7M8U9" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-form-action"
+                title="Register for 2nd Year via Google Form"
+              >
+                <span>Open Registration Form</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              </a>
+              <a 
+                href="https://chat.whatsapp.com/IDUGXxrixkIFCrGw2TayZT" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-whatsapp-action"
+                title="Join 2nd Year WhatsApp Community"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                <span>Join 2nd Year WhatsApp Group</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 2: 3rd Year B.Tech Students -->
+          <article class="year-card card-3rd">
+            <div class="year-badge-top">
+            </div>
+            <span class="year-card-icon">🎓</span>
+            <h3 class="year-title">3rd Year B.Tech Students</h3>
+            <p class="year-desc">
+              Dedicated transport management for 3rd Year batches across multiple exam centres and dual shifts.
+            </p>
+
+            <ul class="year-perks-list">
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Dedicated 3rd Year Express Fleet</span>
+              </li>
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Early Shift & Noon Shift Routing</span>
+              </li>
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Real-Time Group Coordination</span>
+              </li>
+            </ul>
+
+            <div class="year-actions-group">
+              <a 
+                href="https://forms.gle/2axzR48VnCrAGJFz6" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-form-action"
+                title="Register for 3rd Year via Google Form"
+              >
+                <span>Open Registration Form</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              </a>
+              <a 
+                href="https://chat.whatsapp.com/JOdPfHui7qmJRwjnaWOl3A" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-whatsapp-action"
+                title="Join 3rd Year WhatsApp Community"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                <span>Join 3rd Year WhatsApp Group</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Card 3: 4th Year B.Tech Students -->
+          <article class="year-card card-4th">
+            <div class="year-badge-top">
+            </div>
+            <span class="year-card-icon">🎓</span>
+            <h3 class="year-title">4th Year B.Tech Students</h3>
+            <p class="year-desc">
+              Final year exam transit, customized return slots, and priority centre-wise allocation.
+            </p>
+
+            <ul class="year-perks-list">
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Priority Final Year Scheduling</span>
+              </li>
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Synchronized Return Timings</span>
+              </li>
+              <li class="year-perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Direct Coordinator Direct Connect</span>
+              </li>
+            </ul>
+
+            <div class="year-actions-group">
+              <a 
+                href="https://forms.gle/EDsdPMhureiLhKiV7" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-form-action"
+                title="Register for 4th Year via Google Form"
+              >
+                <span>Open Registration Form</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              </a>
+              <a 
+                href="https://chat.whatsapp.com/CcngKUPyQL9AL8sdjWhVan" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-whatsapp-action"
+                title="Join 4th Year WhatsApp Community"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                <span>Join 4th Year WhatsApp Group</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule / Dates Section -->
+    <section class="schedule-section" id="schedule">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag">Transit Calendar</span>
+          <h2 class="section-title">October 2026 Examination Dates</h2>
+          <p class="section-desc">
+            Bansal Bus Service will operate dedicated morning and afternoon runs across all designated dates.
+          </p>
+        </div>
+
+        <div class="dates-container">
+          <div class="date-card">
+            <span class="date-pill">Friday Run</span>
+            <div class="date-number">OCT 17</div>
+            <div class="date-month">October 2026</div>
+          </div>
+          <div class="date-card" style="border-color: var(--amber-yellow); background: var(--amber-light);">
+            <span class="date-pill" style="background: var(--amber-yellow); color: var(--charcoal-obsidian);">Saturday Peak</span>
+            <div class="date-number">OCT 18</div>
+            <div class="date-month">October 2026</div>
+          </div>
+          <div class="date-card">
+            <span class="date-pill">Friday Run</span>
+            <div class="date-number">OCT 24</div>
+            <div class="date-month">October 2026</div>
+          </div>
+        </div>
+
+        
+
+      </div>
+    </section>
+
+    <!-- How It Works (3 Simple Steps) -->
+    <section class="how-it-works-section" id="how-it-works">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag">Process Flow</span>
+          <h2 class="section-title">How It Works in 3 Simple Steps</h2>
+          <p class="section-desc">
+            A frictionless booking process designed specifically for engineering students.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-number-badge">1</div>
+            <h3 class="step-title">Submit Registration Form</h3>
+            <p class="step-desc">
+              Select your academic year above and submit the official Google Form with your exam dates, shift timings, and allocated exam venue.
+            </p>
+            <a href="#register" class="step-link-highlight">
+              <span>Jump to Registration Links</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-number-badge">2</div>
+            <h3 class="step-title">Join WhatsApp Community</h3>
+            <p class="step-desc">
+              Join your designated year WhatsApp group for real-time announcements, pickup gate alerts, live bus route tracking, and roll calls.
+            </p>
+            <span class="step-link-highlight" style="color: #25d366;">
+              <span>Community-Driven Support</span>
+            </span>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card">
+            <div class="step-number-badge">3</div>
+            <h3 class="step-title">Access Boarding Pass</h3>
+            <p class="step-desc">
+              Log in to the 3D Conveyance Portal with your registered email to view your verified boarding ticket, allocated bus fleet number, and seat details.
+            </p>
+            <a href="login.html" class="step-link-highlight">
+              <span>Open Portal Login</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Coordinator Support Section ("Need Help?") -->
+    <section class="support-section" id="support">
+      <div class="container">
+        <div class="support-banner-card">
+          
+          <div class="support-info-col">
+            <span class="support-meta-pill">24x7 STUDENT DESK</span>
+            <h2 class="support-title">Need Direct Assistance or Route Clarification?</h2>
+            <p class="support-desc">
+              Have questions about pickup points, shift timings, luggage accommodation, or booking changes? Our student coordinators are available round the clock to ensure you have zero exam-day anxiety.
+            </p>
+            <div style="font-size: 0.85rem; color: #a1a1aa;">
+              📍 Transit Desk Hotline: <strong>+91 63972 44651</strong>
+            </div>
+          </div>
+
+          <div class="support-buttons-group">
+            <!-- Direct Phone Call -->
+            <a href="tel:+916397244651" class="support-btn support-btn-phone" title="Call Student Coordinator">
+              <div class="support-btn-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div class="support-btn-text">
+                <small>Instant Voice Support</small>
+                <span>Call +91 63972 44651</span>
+              </div>
+            </a>
+
+            <!-- Direct WhatsApp Message -->
+            <a 
+              href="https://wa.me/916397244651?text=Hello%20Bansal%20Bus%20Service%20Team%2C%20I%20have%20an%20inquiry%20regarding%20NPTEL%20transit." 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="support-btn support-btn-whatsapp"
+              title="Message Coordinator on WhatsApp"
+            >
+              <div class="support-btn-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+              </div>
+              <div class="support-btn-text">
+                <small>Direct WhatsApp Chat</small>
+                <span>Chat with Coordinator</span>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Brand Info -->
+        <div>
+          <div class="footer-brand-title">BANSAL BUS SERVICE</div>
+          <p class="footer-brand-desc">
+            Independent student-led private transit collective facilitating punctual, comfortable campus-to-centre bus conveyance for college engineering students appearing for NPTEL Examinations in October 2026.
+          </p>
+        </div>
+
+        <!-- Center Column: Quick Navigation -->
+        <div>
+          <div class="footer-col-title">Portal & Forms</div>
+          <ul class="footer-links-list">
+            <li class="footer-link-item"><a href="login.html">Access Boarding Portal </a></li>
+            <li class="footer-link-item"><a href="https://forms.gle/a4NKnCTmWsVU7M8U9" target="_blank" rel="noopener noreferrer">2nd Year Form (B.Tech)</a></li>
+            <li class="footer-link-item"><a href="https://forms.gle/2axzR48VnCrAGJFz6" target="_blank" rel="noopener noreferrer">3rd Year Form (B.Tech)</a></li>
+            <li class="footer-link-item"><a href="https://forms.gle/EDsdPMhureiLhKiV7" target="_blank" rel="noopener noreferrer">4th Year Form (B.Tech)</a></li>
+            <li class="footer-link-item"><a href="#centers">Exam Venues & Centers</a></li>
+          </ul>
+        </div>
+
+        <!-- Right Column: Community & Support -->
+        <div>
+          <div class="footer-col-title">Community & Help</div>
+          <ul class="footer-links-list">
+            <li class="footer-link-item"><a href="https://chat.whatsapp.com/IDUGXxrixkIFCrGw2TayZT" target="_blank" rel="noopener noreferrer">2nd Year WhatsApp Community</a></li>
+            <li class="footer-link-item"><a href="https://chat.whatsapp.com/JOdPfHui7qmJRwjnaWOl3A" target="_blank" rel="noopener noreferrer">3rd Year WhatsApp Community</a></li>
+            <li class="footer-link-item"><a href="https://chat.whatsapp.com/CcngKUPyQL9AL8sdjWhVan" target="_blank" rel="noopener noreferrer">4th Year WhatsApp Community</a></li>
+            <li class="footer-link-item"><a href="tel:+916397244651">Helpline: +91 63972 44651</a></li>
+            <li class="footer-link-item"><a href="https://wa.me/916397244651" target="_blank" rel="noopener noreferrer">Direct WhatsApp Desk</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Credits Bar -->
+      <div class="footer-bottom-bar">
+        <div>
+          &copy; 2026 DRUTVA SERVICES. All Rights Reserved.
+        </div>
+        <div class="drutva-credit">
+          Designed, Developed &amp; Maintained by <strong>DRUTVA SERVICES</strong>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       Interactive JavaScript
+       - Center Search Filtering
+       - Header Glass Blur on Scroll
+       - Mobile Menu Toggle
+       ========================================================================== -->
+  <script>
+    // Header shadow on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile Drawer Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+
+    if (menuToggle && mobileDrawer) {
+      menuToggle.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('open');
+      });
+
+      // Close mobile drawer on link click
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileDrawer.classList.remove('open');
+        });
+      });
+    }
+
+    // Examination Centers Live Filter
+    const centerSearchInput = document.getElementById('centerSearchInput');
+    const centersGrid = document.getElementById('centersGrid');
+
+    if (centerSearchInput && centersGrid) {
+      centerSearchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const centerCards = centersGrid.querySelectorAll('.center-card');
+
+        centerCards.forEach(card => {
+          const centerText = card.getAttribute('data-center') || card.textContent.toLowerCase();
+          if (centerText.includes(query)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
