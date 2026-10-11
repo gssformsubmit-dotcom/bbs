@@ -88,113 +88,28 @@ const transporters = mailAccounts.map(acc => ({
 let globalEmailCounter = 0;
 
 async function sendRotationalOTP(toEmail, studentName, otp) {
-  if (transporters.length === 0) throw new Error('No Gmail accounts configured in .env');
-
-  const today = new Date().toISOString().split('T')[0];
-  let quotaDoc = await EmailQuota.findOne({ date: today });
-  if (!quotaDoc) quotaDoc = await EmailQuota.create({ date: today, counts: {} });
-
-  const DAILY_LIMIT = 480;
-  let sent = false;
-  let lastErr = null;
-
-  // Har 4 email baad index shift: 0, 0, 0, 0 -> 1, 1, 1, 1 -> 2, 2, 2, 2 -> 0...
-  const preferredIndex = Math.floor(globalEmailCounter / 4) % transporters.length;
-
-  // Preferred index se shuru karke teeno par loop
-  for (let step = 0; step < transporters.length; step++) {
-    const currentIndex = (preferredIndex + step) % transporters.length;
-    const accObj = transporters[currentIndex];
-    const currentUsage = quotaDoc.counts.get(accObj.id) || 0;
-
-    if (currentUsage >= DAILY_LIMIT) continue;
-
-    try {
-      const plainText = `Bansal Bus Service - Verification Code\n\nHello ${studentName},\n\nYour security verification code for the student transit portal is: ${otp}\n\nThis verification code remains valid for 10 minutes. Please do not share this passcode with anyone.\n\nBansal Bus Service, Mathura`;
-
-      const premiumHtml = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Verification Code</title>
-      </head>
-      <body style="margin: 0; padding: 0; background-color: #f4f1ea; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed; background-color: #f4f1ea; padding: 24px 12px;">
-          <tr>
-            <td align="center">
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 480px; background-color: #ffffff; border-radius: 20px; overflow: hidden; border: 1px solid #e5dfd3; box-shadow: 0 10px 25px rgba(28,25,23,0.06);">
-                <tr>
-                  <td style="background-color: #1c1917; padding: 24px 28px; text-align: left;">
-                    <div style="display: inline-block; background-color: #f5be38; color: #1c1917; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Official Conveyance</div>
-                    <h1 style="margin: 0; color: #ffffff; font-size: 20px; font-weight: 800; letter-spacing: -0.02em;">Bansal Bus Service</h1>
-                    <p style="margin: 4px 0 0 0; color: #a8a29e; font-size: 13px;">GLA University &bull; NPTEL Examination Transit</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 32px 28px 24px 28px;">
-                    <p style="margin: 0 0 12px 0; font-size: 16px; font-weight: 700; color: #1c1917;">Dear ${studentName},</p>
-                    <p style="margin: 0 0 24px 0; font-size: 14px; color: #57534e; line-height: 1.55;">
-                      We received a request to access your student travel dashboard. Please use the one-time passcode below to complete your verification:
-                    </p>
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #fdfaf3; border: 2px dashed #f5be38; border-radius: 14px; margin-bottom: 24px;">
-                      <tr>
-                        <td align="center" style="padding: 22px 16px;">
-                          <div style="font-size: 11px; font-weight: 700; color: #78716c; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">One-Time Passcode</div>
-                          <div style="font-family: 'Courier New', Courier, monospace; font-size: 36px; font-weight: 800; letter-spacing: 10px; color: #1c1917; line-height: 1.2;">${otp}</div>
-                          <div style="margin-top: 8px; font-size: 12px; font-weight: 600; color: #b45309;">Valid for 10 minutes only</div>
-                        </td>
-                      </tr>
-                    </table>
-                    <p style="margin: 0 0 6px 0; font-size: 13px; color: #78716c; line-height: 1.5;">
-                      &bull; If you did not initiate this request, no action is needed; your account remains secure.
-                    </p>
-                    <p style="margin: 0; font-size: 13px; color: #78716c; line-height: 1.5;">
-                      &bull; Never disclose this security code to drivers, coordinators, or fellow students.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="background-color: #faf8f5; padding: 20px 28px; border-top: 1px solid #f0ebe1; text-align: center;">
-                    <p style="margin: 0 0 4px 0; font-size: 12px; font-weight: 700; color: #44403c;">Bansal Bus Service</p>
-                    <p style="margin: 0; font-size: 11px; color: #a8a29e;">NH-19, Mathura-Delhi Road, Chaumuhan, Mathura (U.P.)</p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-      </html>
-      `;
-
-      await accObj.transporter.sendMail({
-        from: `"Bansal Bus Service" <${accObj.user}>`,
-        to: toEmail,
-        replyTo: accObj.user,
-        subject: `Bansal Bus Service - Verification Code for ${studentName}`,
-        text: plainText,
-        html: premiumHtml
-      });
-
-      // Safal hone par counter badhayein
-      globalEmailCounter++;
-      quotaDoc.counts.set(accObj.id, currentUsage + 1);
-      await quotaDoc.save();
-
-      console.log(`✉️ [INBOX DISPATCH] OTP sent to: ${toEmail} via Account ${currentIndex + 1} (${accObj.user}) | Total sent in batch: ${globalEmailCounter}`);
-      sent = true;
-      break;
-    } catch (err) {
-      console.warn(`⚠️ Account ${accObj.user} failed. Trying next account. Error:`, err.message);
-      lastErr = err;
-    }
+  const webhookUrl = process.env.OTP_WEBHOOK_URL;
+  if (!webhookUrl) {
+    throw new Error('OTP_WEBHOOK_URL is not set in environment variables');
   }
 
-  if (!sent) {
-    throw new Error(lastErr ? lastErr.message : 'All Gmail accounts failed or reached daily quota limit!');
+  const response = await fetch(webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: toEmail,
+      name: studentName,
+      otp: otp
+    })
+  });
+
+  const resData = await response.json().catch(() => ({}));
+  if (!response.ok || resData.success === false) {
+    throw new Error(resData.error || 'Failed to dispatch OTP via Google Apps Script');
   }
+
+  console.log(`✉️ [INBOX DISPATCH] OTP sent to: ${toEmail} via Google Apps Script Service!`);
+  return true;
 }
 
 // 4. API: Check Status (Email Verification Step)
@@ -613,10 +528,4 @@ app.listen(PORT, () => {
 
   syncDirectFromSheet();
   setInterval(syncDirectFromSheet, 60 * 1000); // Production Safe Interval
-  transporters.forEach((t, idx) => {
-    t.transporter.verify((err) => {
-      if (err) console.error(`❌ Gmail Account ${idx + 1} (${t.user}) Auth Failed:`, err.message);
-      else console.log(`📧 Gmail Account ${idx + 1} (${t.user}) Verified & Ready!`);
-    });
-  });
 });
