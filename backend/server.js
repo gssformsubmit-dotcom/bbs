@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB Atlas Connected Successfully!'))
   .catch(err => console.error('MongoDB Error:', err));
 
-// 2. Student Database Schema
+
 const studentSchema = new mongoose.Schema({
   timestamp: { type: String, default: '' },
   email: { type: String, required: true, lowercase: true, trim: true, index: true },
