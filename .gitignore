@@ -1,0 +1,11 @@
+# Sensitive & Environment variables (कभी भी गिट पर नहीं जाएगी)
+.env
+backend/.env
+
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Mac OS System Files
+.DS_Store
+*/.DS_Store
